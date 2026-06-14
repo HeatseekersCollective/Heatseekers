@@ -113,9 +113,61 @@
 
     /* HERO */
     .hero {
-      padding: 56px 32px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
       border-bottom: 0.5px solid var(--border);
-      max-width: 100%;
+      min-height: 560px;
+    }
+    .hero-left {
+      padding: 56px 40px 48px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-right {
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+    }
+    .hero-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: brightness(0.88) contrast(1.05);
+      transition: transform 0.8s ease;
+    }
+    .hero-right:hover img { transform: scale(1.03); }
+    .hero-right-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, #0e0e0e 0%, transparent 18%);
+      pointer-events: none;
+    }
+    .hero-right-tag {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #555;
+      border-top: 0.5px solid #2a2a2a;
+      padding-top: 8px;
+    }
+    .hero-right-tag em { color: var(--cream); font-style: normal; }
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+      .hero-left { padding: 36px 16px 32px; }
+      .hero-right { height: 340px; }
+      .hero-right-overlay {
+        background: linear-gradient(to bottom, #0e0e0e 0%, transparent 20%);
+      }
     }
     .hero-eyebrow {
       display: inline-flex;
@@ -805,22 +857,29 @@
 <div id="page-home" class="page active">
 
   <div class="hero">
-    <div class="hero-eyebrow">
-      <div class="pulse"></div>
-      <span id="drop-eyebrow">Next Drop Loading...</span>
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="pulse"></div>
+        <span id="drop-eyebrow">Next Drop Loading...</span>
+      </div>
+      <h1>Rare<br>Vintage<br>Heat.</h1>
+      <p class="hero-sub">90s. Y2K. Sourced from estate sales and private sellers. Once it's gone, it's gone.</p>
+      <div class="countdown">
+        <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">Days</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">Hrs</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">Min</span></div>
+        <div class="cd-sep">:</div>
+        <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">Sec</span></div>
+      </div>
+      <button class="btn" onclick="showPage('drops')">Shop The Drop <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
     </div>
-    <h1>Rare<br>Vintage<br>Heat.</h1>
-    <p class="hero-sub">90s. Y2K. Sourced from estate sales and private sellers. Once it's gone, it's gone.</p>
-    <div class="countdown">
-      <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">Days</span></div>
-      <div class="cd-sep">:</div>
-      <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">Hrs</span></div>
-      <div class="cd-sep">:</div>
-      <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">Min</span></div>
-      <div class="cd-sep">:</div>
-      <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">Sec</span></div>
+    <div class="hero-right">
+      <img src="images/stp-tee.jpg" alt="Stone Temple Pilots vintage tee — featured drop"/>
+      <div class="hero-right-overlay"></div>
+      <div class="hero-right-tag"><em>Featured</em> — Stone Temple Pilots · 90s · In Drop Now</div>
     </div>
-    <button class="btn" onclick="showPage('drops')">Shop The Drop <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
   </div>
 
   <div class="marquee-wrap">
@@ -1004,51 +1063,51 @@
   const PRODUCTS = [
     {
       id: 1,
-      name: 'Heavy Fade',
-      sub: "Black Heavyweight Hoodie '98",
-      price: 145,
+      name: 'Stone Temple Pilots',
+      sub: "Core Tour Tee '93",
+      price: 185,
       era: '90s',
-      cat: 'Hoodies',
-      emoji: '🖤',
-      photo: 'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=800&q=80',
-      sizes: ['M', 'L', 'XL'],
+      cat: 'Shirts',
+      emoji: '🎸',
+      photo: 'images/stp-tee.jpg',
+      sizes: ['XL'],
       soldSizes: [],
-      desc: 'Thick 500gsm heavyweight blank hoodie from the late 90s. Faded perfectly over decades of wear. No graphics, all character. The kind of piece you build an outfit around.',
-      measurements: { chest: '25"', length: '28"', sleeve: '26"', condition: 'Very Good — natural fade' },
+      desc: "Original 1993 Stone Temple Pilots Core tour tee. All-over print, front and back. The fading on this is thirty years of earned character — nothing manufactured about it. Single stitch, original tags.",
+      measurements: { chest: '24"', length: '29"', condition: 'Very Good — authentic age fade' },
       featured: true,
       sold: false,
       shopifyId: null
     },
     {
       id: 2,
-      name: 'Vintage Camo',
-      sub: "Army Surplus Field Jacket '92",
-      price: 185,
+      name: 'SF 49ers',
+      sub: "Pro Player Diamond Puffer '94",
+      price: 265,
       era: '90s',
       cat: 'Outerwear',
-      emoji: '🪖',
-      photo: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80',
+      emoji: '🏈',
+      photo: 'images/49ers-jacket.jpg',
       sizes: ['L', 'XL'],
       soldSizes: [],
-      desc: 'Genuine US Army surplus M65 field jacket. 1992 issue. Original buttons, all pockets intact. One of the most coveted outerwear pieces in the streetwear world right now.',
-      measurements: { chest: '24"', length: '30"', sleeve: '27"', condition: 'Good — honest wear' },
+      desc: "Pro Player SF 49ers diamond puffer from the 1994 season. The colorblock on this thing is absurd — red, white, and gold. Embroidered 49ers across the back, SF logo on chest. This is peak 90s NFL outerwear. Impossible to find in this condition.",
+      measurements: { chest: '27"', length: '30"', sleeve: '27"', condition: 'Very Good — clean lining' },
       featured: true,
       sold: false,
       shopifyId: null
     },
     {
       id: 3,
-      name: 'Washed Denim',
-      sub: "Lee Riders Straight Leg '95",
-      price: 95,
+      name: 'Tool',
+      sub: "Undertow Era L/S Tee '93",
+      price: 320,
       era: '90s',
-      cat: 'Bottoms',
-      emoji: '👖',
-      photo: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&q=80',
-      sizes: ['30×32', '32×32', '34×30'],
-      soldSizes: ['30×32'],
-      desc: 'Dead-stock 1995 Lee Riders straight leg. Original patch, copper rivets, authentic mid-wash fade. No alterations, no repairs. Exactly as found.',
-      measurements: { waist: '32"', inseam: '32"', rise: '11"', condition: 'Near Dead Stock' },
+      cat: 'Shirts',
+      emoji: '🔴',
+      photo: 'images/tool-tee.jpg',
+      sizes: ['L'],
+      soldSizes: [],
+      desc: "Original Tool Undertow era long-sleeve from 1993. The iconic three-face graphic on red. Screen printed on a heavyweight black blank. This is a genuine grail — Tool merch from this era almost never surfaces in wearable condition. If you know, you know.",
+      measurements: { chest: '23"', length: '30"', sleeve: '26"', condition: 'Excellent — minimal wear' },
       featured: true,
       sold: false,
       shopifyId: null
