@@ -57,12 +57,14 @@
       border-bottom: 0.5px solid var(--border);
     }
     .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 22px;
-      letter-spacing: 3px;
-      color: var(--cream);
-      text-decoration: none;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .nav-logo svg {
+      height: 36px;
+      width: auto;
     }
     .nav-links {
       display: flex;
@@ -783,7 +785,7 @@
 
 <!-- NAV -->
 <nav class="nav">
-  <div class="nav-logo" onclick="showPage('home')">HeatSeekers</div>
+  <div class="nav-logo" onclick="showPage('home')" role="button" aria-label="HeatSeekers Collective Home"><svg viewBox="0 0 320 44" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><filter id="rf"><feTurbulence type="turbulence" baseFrequency="0.04 0.065" numOctaves="2" seed="8" result="t"/><feDisplacementMap in="SourceGraphic" in2="t" scale="1.2" xChannelSelector="R" yChannelSelector="G"/></filter></defs><rect x="0" y="6" width="3" height="32" fill="#c8bfa8"/><g filter="url(#rf)"><text x="12" y="32" font-family="'Bebas Neue', sans-serif" font-size="30" fill="#c8bfa8" letter-spacing="3">HEATSEEKERS</text></g><rect x="12" y="36" width="296" height="0.5" fill="#2a2a2a"/><text x="13" y="43" font-family="'Space Grotesk', sans-serif" font-size="7" fill="#4a4540" letter-spacing="5">COLLECTIVE</text></svg></div>
   <ul class="nav-links">
     <li class="active" onclick="showPage('home')">Shop</li>
     <li onclick="showPage('drops')">Drops</li>
@@ -1002,102 +1004,136 @@
   const PRODUCTS = [
     {
       id: 1,
-      name: 'Lil Peep',
-      sub: "Memorial Hoodie '17",
-      price: 120,
-      era: 'Y2K',
+      name: 'Heavy Fade',
+      sub: "Black Heavyweight Hoodie '98",
+      price: 145,
+      era: '90s',
       cat: 'Hoodies',
       emoji: '🖤',
-      photo: null, // replace with: '/images/lil-peep-hoodie.jpg'
-      sizes: ['S', 'M', 'XL'],
+      photo: 'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=800&q=80',
+      sizes: ['M', 'L', 'XL'],
       soldSizes: [],
-      desc: 'Extremely rare 2017 memorial tour hoodie. Embroidered front logo, original interior tags intact. Heavy 500gsm fleece. Minor fading consistent with age and wear.',
-      measurements: { chest: '24"', length: '28"', sleeve: '25"', condition: 'Very Good' },
+      desc: 'Thick 500gsm heavyweight blank hoodie from the late 90s. Faded perfectly over decades of wear. No graphics, all character. The kind of piece you build an outfit around.',
+      measurements: { chest: '25"', length: '28"', sleeve: '26"', condition: 'Very Good — natural fade' },
       featured: true,
       sold: false,
-      shopifyId: null // paste Shopify variant ID here when ready
+      shopifyId: null
     },
     {
       id: 2,
-      name: 'Godflesh',
-      sub: 'Streetcleaner L/S',
-      price: 250,
+      name: 'Vintage Camo',
+      sub: "Army Surplus Field Jacket '92",
+      price: 185,
       era: '90s',
-      cat: 'Shirts',
-      emoji: '💀',
-      photo: null,
-      sizes: ['L'],
+      cat: 'Outerwear',
+      emoji: '🪖',
+      photo: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=800&q=80',
+      sizes: ['L', 'XL'],
       soldSizes: [],
-      desc: 'Original 1989 Streetcleaner tour long-sleeve. Near mint condition. Screen printed front and back. One of the rarest industrial metal tees in circulation.',
-      measurements: { chest: '22"', length: '30"', sleeve: '26"', condition: 'Excellent' },
+      desc: 'Genuine US Army surplus M65 field jacket. 1992 issue. Original buttons, all pockets intact. One of the most coveted outerwear pieces in the streetwear world right now.',
+      measurements: { chest: '24"', length: '30"', sleeve: '27"', condition: 'Good — honest wear' },
       featured: true,
       sold: false,
       shopifyId: null
     },
     {
       id: 3,
-      name: 'Denim',
-      sub: "Vintage Wrangler '94",
-      price: 90,
+      name: 'Washed Denim',
+      sub: "Lee Riders Straight Leg '95",
+      price: 95,
       era: '90s',
       cat: 'Bottoms',
       emoji: '👖',
-      photo: null,
+      photo: 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&q=80',
       sizes: ['30×32', '32×32', '34×30'],
-      soldSizes: [],
-      desc: 'Dead-stock 1994 Wrangler denim. Original patch, no alterations. Medium wash with authentic period fade.',
-      measurements: { waist: '30"', inseam: '32"', rise: '11"', condition: 'Dead Stock' },
+      soldSizes: ['30×32'],
+      desc: 'Dead-stock 1995 Lee Riders straight leg. Original patch, copper rivets, authentic mid-wash fade. No alterations, no repairs. Exactly as found.',
+      measurements: { waist: '32"', inseam: '32"', rise: '11"', condition: 'Near Dead Stock' },
       featured: true,
       sold: false,
       shopifyId: null
     },
     {
       id: 4,
-      name: 'Lil Tecca',
-      sub: 'Ransom Era Tee',
-      price: 85,
-      era: 'Y2K',
+      name: 'Blank Tee',
+      sub: "Hanes Beefy 50/50 Single Stitch '94",
+      price: 55,
+      era: '90s',
       cat: 'Shirts',
-      emoji: '⚡',
-      photo: null,
-      sizes: ['M', 'L', 'XL'],
-      soldSizes: ['M'],
-      desc: 'Promo tee from the Ransom era. Heavyweight cotton, barely worn. Screen printed graphic front.',
-      measurements: { chest: '21"', length: '29"', condition: 'Good' },
+      emoji: '👕',
+      photo: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80',
+      sizes: ['S', 'M', 'L', 'XL'],
+      soldSizes: ['S'],
+      desc: 'Single stitch Hanes Beefy 50/50 blank tee from 1994. Faded oatmeal colorway. The cotton weight on these old Hanes blanks is unmatched by anything made today.',
+      measurements: { chest: '21"', length: '28"', condition: 'Good — soft fade' },
       featured: false,
       sold: false,
       shopifyId: null
     },
     {
       id: 5,
-      name: 'Windbreaker',
-      sub: "Nike '96 Aqua",
-      price: 110,
+      name: 'Varsity',
+      sub: "Letterman Wool Jacket '89",
+      price: 220,
       era: '90s',
       cat: 'Outerwear',
-      emoji: '💧',
-      photo: null,
+      emoji: '🏈',
+      photo: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80',
       sizes: ['M', 'L'],
       soldSizes: [],
-      desc: 'OG 1996 Nike windbreaker in aqua colorway. All original hardware and drawstrings. Minor cuff wear.',
-      measurements: { chest: '23"', length: '27"', condition: 'Very Good' },
+      desc: 'Genuine high school varsity letterman from 1989. Wool body, leather sleeves, chenille patch. Clean lining. The kind of piece that stops people on the street.',
+      measurements: { chest: '23"', length: '27"', sleeve: '25"', condition: 'Very Good' },
       featured: false,
       sold: false,
       shopifyId: null
     },
     {
       id: 6,
-      name: 'Wu-Tang',
-      sub: '36 Chambers Tee',
-      price: 300,
+      name: 'Crewneck',
+      sub: "Reverse Weave Champion '96",
+      price: 130,
+      era: '90s',
+      cat: 'Hoodies',
+      emoji: '🔵',
+      photo: 'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=800&q=80',
+      sizes: ['L', 'XL'],
+      soldSizes: [],
+      desc: 'Original 1996 Champion reverse weave crewneck. Navy blue with faded C logo. These old reverse weave blanks are some of the best cotton ever put into a sweatshirt.',
+      measurements: { chest: '26"', length: '27"', condition: 'Very Good — light fade' },
+      featured: false,
+      sold: false,
+      shopifyId: null
+    },
+    {
+      id: 7,
+      name: 'Flannel',
+      sub: "Pendleton Wool Flannel '91",
+      price: 110,
       era: '90s',
       cat: 'Shirts',
-      emoji: '🐝',
-      photo: null,
-      sizes: ['XL'],
+      emoji: '🟫',
+      photo: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=800&q=80',
+      sizes: ['M', 'L'],
       soldSizes: [],
-      desc: 'Original 1993 Wu-Tang Clan 36 Chambers release tee. Faded to absolute perfection. A genuine grail piece.',
-      measurements: { chest: '25"', length: '30"', condition: 'Good — age fading' },
+      desc: 'Pendleton wool flannel from 1991. Classic brown plaid. Made in USA. Pendleton wool from this era is thick, structured, and impossible to find in this condition.',
+      measurements: { chest: '23"', length: '29"', sleeve: '26"', condition: 'Excellent' },
+      featured: false,
+      sold: false,
+      shopifyId: null
+    },
+    {
+      id: 8,
+      name: 'Track Jacket',
+      sub: "Adidas Trefoil Full Zip '97",
+      price: 160,
+      era: 'Y2K',
+      cat: 'Outerwear',
+      emoji: '⚡',
+      photo: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=800&q=80',
+      sizes: ['S', 'M', 'L'],
+      soldSizes: ['S'],
+      desc: 'Late 90s Adidas Trefoil track jacket. Tonal navy with gold trefoil embroidery. Full zip, side pockets, ribbed cuffs. The OG colourway before they started making them overseas.',
+      measurements: { chest: '22"', length: '26"', sleeve: '25"', condition: 'Very Good' },
       featured: false,
       sold: false,
       shopifyId: null
@@ -1110,14 +1146,14 @@
   // and paste it here with soldFor price + drop info
   // =============================================
   const ARCHIVE = [
-    { id: 101, name: 'Carti', sub: 'WLR Bootleg Tee', soldFor: 160, era: 'Y2K', cat: 'Shirts', emoji: '🌹', photo: null, drop: 'Drop 034', soldDate: 'Jun 2025' },
-    { id: 102, name: 'Travis Scott', sub: 'Utopia Stadium Tee', soldFor: 140, era: 'Y2K', cat: 'Shirts', emoji: '🌵', photo: null, drop: 'Drop 034', soldDate: 'Jun 2025' },
-    { id: 103, name: 'Nirvana', sub: "Nevermind '91 Tour", soldFor: 420, era: '90s', cat: 'Shirts', emoji: '🎸', photo: null, drop: 'Drop 033', soldDate: 'May 2025' },
-    { id: 104, name: 'Pelle Pelle', sub: 'Leather Bomber', soldFor: 380, era: '90s', cat: 'Outerwear', emoji: '🧥', photo: null, drop: 'Drop 033', soldDate: 'May 2025' },
-    { id: 105, name: 'Tupac', sub: 'All Eyez On Me Promo', soldFor: 550, era: '90s', cat: 'Shirts', emoji: '👑', photo: null, drop: 'Drop 032', soldDate: 'Apr 2025' },
-    { id: 106, name: 'JNCO', sub: "Wide Leg Denim '98", soldFor: 75, era: 'Y2K', cat: 'Bottoms', emoji: '🌀', photo: null, drop: 'Drop 032', soldDate: 'Apr 2025' },
-    { id: 107, name: 'Marilyn Manson', sub: 'Antichrist Tour Tee', soldFor: 280, era: '90s', cat: 'Shirts', emoji: '🔮', photo: null, drop: 'Drop 031', soldDate: 'Mar 2025' },
-    { id: 108, name: 'FUBU', sub: '75 Jersey', soldFor: 95, era: 'Y2K', cat: 'Shirts', emoji: '🏀', photo: null, drop: 'Drop 031', soldDate: 'Mar 2025' },
+    { id: 101, name: 'Carhartt', sub: "Detroit Blanket Lined '93", soldFor: 210, era: '90s', cat: 'Outerwear', emoji: '🟧', photo: 'https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=800&q=80', drop: 'Drop 034', soldDate: 'Jun 2025' },
+    { id: 102, name: 'Polo Sport', sub: 'Ralph Lauren Fleece Pullover', soldFor: 175, era: '90s', cat: 'Hoodies', emoji: '🏇', photo: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800&q=80', drop: 'Drop 034', soldDate: 'Jun 2025' },
+    { id: 103, name: 'Levi\'s', sub: "Orange Tab Denim Trucker '88", soldFor: 195, era: '90s', cat: 'Outerwear', emoji: '🧡', photo: 'https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?w=800&q=80', drop: 'Drop 033', soldDate: 'May 2025' },
+    { id: 104, name: 'Striped Tee', sub: "Mariniere Single Stitch '91", soldFor: 65, era: '90s', cat: 'Shirts', emoji: '〰️', photo: 'https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=800&q=80', drop: 'Drop 033', soldDate: 'May 2025' },
+    { id: 105, name: 'Dickies', sub: "874 Work Pants Khaki '96", soldFor: 70, era: '90s', cat: 'Bottoms', emoji: '🟤', photo: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&q=80', drop: 'Drop 032', soldDate: 'Apr 2025' },
+    { id: 106, name: 'FUBU', sub: '05 Collection Jersey', soldFor: 120, era: 'Y2K', cat: 'Shirts', emoji: '🏀', photo: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80', drop: 'Drop 032', soldDate: 'Apr 2025' },
+    { id: 107, name: 'Bomber', sub: "MA-1 Flight Jacket '94", soldFor: 245, era: '90s', cat: 'Outerwear', emoji: '✈️', photo: 'https://images.unsplash.com/photo-1559551409-dadc959f76b8?w=800&q=80', drop: 'Drop 031', soldDate: 'Mar 2025' },
+    { id: 108, name: 'Baggy Jeans', sub: "JNCO Wide Leg '98", soldFor: 85, era: 'Y2K', cat: 'Bottoms', emoji: '🌀', photo: 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?w=800&q=80', drop: 'Drop 031', soldDate: 'Mar 2025' },
   ];
 
   // ==================== STATE ====================
