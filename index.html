@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HeatSeekers Collective — Rare Vintage Streetwear</title>
+  <meta name="description" content="Rare vintage streetwear. 90s. Y2K. Monthly drops. Never to be found again."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+  <style>
+    /* =============================================
+       HEATSEEKERS COLLECTIVE — EDIT GUIDE
+       =============================================
+       To add/edit products: find PRODUCTS array below (~line 400 in <script>)
+       To update drop date: find DROP_DATE variable
+       To update Instagram widget: find <!-- INSTAGRAM WIDGET --> comment
+       To update Shopify buy buttons: find <!-- SHOPIFY --> comments
+       ============================================= */
+
+    :root {
+      --cream: #c8bfa8;
+      --cream-dim: #8a8070;
+      --dark: #0e0e0e;
+      --mid: #161616;
+      --card: #131313;
+      --border: #252525;
+      --border-light: #333;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--cream);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: rgba(14,14,14,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 3px;
+      color: var(--cream);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links li {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #555;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .nav-links li:hover, .nav-links li.active { color: var(--cream); }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .nav-right i {
+      font-size: 20px;
+      color: #555;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .nav-right i:hover { color: var(--cream); }
+    .cart-wrap { position: relative; }
+    .cart-badge {
+      position: absolute;
+      top: -5px; right: -5px;
+      background: var(--cream);
+      color: var(--dark);
+      font-size: 8px;
+      font-weight: 700;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* PAGES */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* HERO */
+    .hero {
+      padding: 56px 32px 48px;
+      border-bottom: 0.5px solid var(--border);
+      max-width: 100%;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--mid);
+      border: 0.5px solid var(--border-light);
+      padding: 6px 14px;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #777;
+      margin-bottom: 24px;
+    }
+    .pulse {
+      width: 6px; height: 6px;
+      background: var(--cream);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 12vw, 96px);
+      line-height: 0.9;
+      letter-spacing: 1px;
+      color: var(--cream);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .hero-sub {
+      font-size: 13px;
+      color: #555;
+      letter-spacing: 1px;
+      line-height: 1.7;
+      max-width: 380px;
+      margin-bottom: 32px;
+    }
+    .countdown {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+      margin-bottom: 36px;
+    }
+    .cd-unit { text-align: center; min-width: 52px; }
+    .cd-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      color: var(--cream);
+      display: block;
+      line-height: 1;
+    }
+    .cd-lbl {
+      font-size: 8px;
+      letter-spacing: 2px;
+      color: #444;
+      text-transform: uppercase;
+    }
+    .cd-sep {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      color: #2a2a2a;
+      margin-top: 4px;
+      padding: 0 2px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--cream);
+      color: var(--cream);
+      background: transparent;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+    }
+    .btn:hover { background: var(--cream); color: var(--dark); }
+    .btn-ghost { border-color: #333; color: #555; }
+    .btn-ghost:hover { border-color: var(--cream); color: var(--cream); background: transparent; }
+    .btn-full { width: 100%; justify-content: center; }
+    .btn-solid { background: var(--cream); color: var(--dark); }
+    .btn-solid:hover { opacity: 0.85; background: var(--cream); color: var(--dark); }
+
+    /* MARQUEE */
+    .marquee-wrap {
+      overflow: hidden;
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      padding: 11px 0;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 48px;
+      white-space: nowrap;
+      animation: marquee 22s linear infinite;
+      width: max-content;
+    }
+    .marquee-track span {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #3a3a3a;
+      flex-shrink: 0;
+    }
+    .marquee-track span em { color: var(--cream-dim); font-style: normal; }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* SECTIONS */
+    .section { padding: 40px 32px 0; }
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 2px;
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title i { font-size: 20px; }
+    .see-all {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #444;
+      cursor: pointer;
+      border-bottom: 0.5px solid #2a2a2a;
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .see-all:hover { color: var(--cream); border-color: var(--cream); }
+
+    /* GRIDS */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+    @media (max-width: 640px) {
+      .nav { padding: 14px 16px; }
+      .nav-links { gap: 16px; }
+      .hero { padding: 36px 16px 32px; }
+      .section { padding: 32px 16px 0; }
+      .grid-3 { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    }
+
+    /* PRODUCT CARDS */
+    .card {
+      background: var(--card);
+      border: 0.5px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.25s, transform 0.2s;
+      position: relative;
+    }
+    .card:hover { border-color: #444; transform: translateY(-1px); }
+    .card-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: #111;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* REPLACE THIS with <img> tags when you have real photos */
+    .card-img-placeholder {
+      font-size: 48px;
+      opacity: 0.6;
+    }
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .card:hover .card-img img { transform: scale(1.04); }
+    .card-tag {
+      position: absolute;
+      top: 10px; left: 10px;
+      font-size: 8px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      font-weight: 600;
+    }
+    .tag-new { background: transparent; border: 0.5px solid var(--cream); color: var(--cream); }
+    .tag-sold { background: var(--cream); color: var(--dark); }
+    .card-wish {
+      position: absolute;
+      top: 10px; right: 10px;
+      font-size: 17px;
+      color: #333;
+      cursor: pointer;
+      transition: color 0.2s;
+      z-index: 2;
+    }
+    .card-wish:hover, .card-wish.on { color: var(--cream); }
+    .card-body { padding: 12px 14px; }
+    .card-name {
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 4px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-sub {
+      font-size: 10px;
+      color: #444;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .card-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px;
+      color: var(--cream);
+    }
+    .card-era {
+      font-size: 9px;
+      letter-spacing: 1px;
+      color: #444;
+      text-transform: uppercase;
+    }
+
+    /* FILTERS */
+    .filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .filter-btn {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border: 0.5px solid var(--border);
+      background: transparent;
+      color: #555;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      border-color: var(--cream);
+      color: var(--cream);
+    }
+
+    /* PRODUCT DETAIL */
+    .detail-back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #444;
+      cursor: pointer;
+      padding: 24px 32px 0;
+      width: fit-content;
+      transition: color 0.2s;
+    }
+    .detail-back:hover { color: var(--cream); }
+    .detail-wrap {
+      padding: 20px 32px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+    @media (max-width: 640px) {
+      .detail-wrap { grid-template-columns: 1fr; gap: 24px; }
+      .detail-back { padding: 20px 16px 0; }
+      .detail-wrap { padding: 16px 16px 32px; }
+    }
+    .detail-img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: var(--card);
+      border: 0.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 96px;
+      overflow: hidden;
+    }
+    .detail-img img { width: 100%; height: 100%; object-fit: cover; }
+    .detail-info h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      letter-spacing: 2px;
+      color: var(--cream);
+      margin-bottom: 2px;
+      line-height: 1;
+    }
+    .detail-sub { font-size: 12px; color: #555; letter-spacing: 1px; margin-bottom: 20px; }
+    .detail-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 44px;
+      color: var(--cream);
+      margin-bottom: 20px;
+      line-height: 1;
+    }
+    .size-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 10px;
+    }
+    .sizes {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .size-opt {
+      padding: 9px 16px;
+      border: 0.5px solid var(--border);
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: #555;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .size-opt:hover { border-color: var(--cream); color: var(--cream); }
+    .size-opt.on { border-color: var(--cream); color: var(--cream); background: rgba(200,191,168,0.07); }
+    .size-opt.sold { opacity: 0.25; cursor: not-allowed; text-decoration: line-through; }
+    .detail-desc {
+      font-size: 12px;
+      color: #555;
+      line-height: 1.8;
+      border-top: 0.5px solid var(--border);
+      padding-top: 20px;
+      margin-top: 4px;
+    }
+    .detail-measurements {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .meas-item { font-size: 11px; color: #444; }
+    .meas-item span { color: var(--cream-dim); }
+
+    /* SHOPIFY BUY BUTTON SLOT */
+    .shopify-slot {
+      margin-bottom: 16px;
+    }
+    /* When Shopify button not connected, show fallback */
+    .shopify-fallback {
+      width: 100%;
+      padding: 16px;
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 3px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .shopify-fallback:hover { opacity: 0.85; }
+    .shopify-fallback:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* ARCHIVE */
+    .archive-card {
+      background: var(--card);
+      border: 0.5px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .archive-img {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #0d0d0d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .archive-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%) brightness(0.7); }
+    .archive-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10,10,10,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .archive-stamp {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 5px;
+      color: var(--cream);
+      border: 1px solid rgba(200,191,168,0.5);
+      padding: 4px 14px;
+      opacity: 0.6;
+    }
+    .archive-body { padding: 10px 12px; }
+    .archive-name {
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .archive-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .archive-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 15px;
+      color: #3a3a3a;
+      text-decoration: line-through;
+    }
+    .archive-drop { font-size: 9px; letter-spacing: 1px; color: #333; text-transform: uppercase; }
+
+    /* INSTAGRAM */
+    .ig-section { padding: 40px 32px; }
+    @media(max-width:640px){ .ig-section { padding: 32px 16px; } }
+    .ig-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .ig-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      letter-spacing: 2px;
+      color: var(--cream);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ig-handle {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #3a3a3a;
+      margin-bottom: 20px;
+    }
+    .ig-handle a { color: #555; text-decoration: none; transition: color 0.2s; }
+    .ig-handle a:hover { color: var(--cream); }
+
+    /* =============================================
+       INSTAGRAM WIDGET AREA
+       Replace the placeholder below with your
+       LightWidget embed code from lightwidget.com
+       ============================================= */
+    .ig-widget-wrap {
+      margin-bottom: 20px;
+      /* LightWidget iframes need this to display properly */
+      width: 100%;
+    }
+    .ig-placeholder-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      margin-bottom: 20px;
+    }
+    .ig-ph-cell {
+      aspect-ratio: 1;
+      background: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #2a2a2a;
+      border: 0.5px solid var(--border);
+    }
+    .ig-footer {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .ig-stats { display: flex; gap: 24px; }
+    .ig-stat .n {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      color: var(--cream);
+      display: block;
+    }
+    .ig-stat .l { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #444; }
+
+    /* CART */
+    .cart-page { padding: 32px; }
+    @media(max-width:640px){ .cart-page { padding: 20px 16px; } }
+    .cart-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 2px;
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .cart-thumb {
+      width: 60px; height: 60px;
+      background: var(--card);
+      border: 0.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .cart-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .cart-info { flex: 1; }
+    .cart-info .n { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--cream); }
+    .cart-info .s { font-size: 10px; color: #444; margin-top: 2px; }
+    .cart-price-col {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      color: var(--cream);
+      min-width: 56px;
+      text-align: right;
+    }
+    .cart-rm { color: #333; cursor: pointer; font-size: 16px; transition: color 0.2s; margin-left: 8px; }
+    .cart-rm:hover { color: var(--cream); }
+    .cart-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 24px 0 20px;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .cart-total-lbl { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #555; }
+    .cart-total-price { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--cream); }
+
+    /* WISHLIST / EMPTY */
+    .empty-state {
+      text-align: center;
+      padding: 80px 32px;
+      color: #333;
+    }
+    .empty-state i { font-size: 48px; display: block; margin-bottom: 16px; }
+    .empty-state p { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 24px; }
+
+    /* ABOUT */
+    .about-page { padding: 48px 32px; max-width: 640px; }
+    @media(max-width:640px){ .about-page { padding: 32px 16px; } }
+    .about-page h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      letter-spacing: 2px;
+      color: var(--cream);
+      line-height: 0.9;
+      margin-bottom: 8px;
+    }
+    .about-eyebrow { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #444; margin-bottom: 32px; }
+    .about-body { font-size: 13px; color: #555; line-height: 1.9; margin-bottom: 16px; }
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 0.5px solid var(--border);
+      margin: 32px 0;
+    }
+    .stat-cell { background: var(--dark); padding: 24px 16px; text-align: center; }
+    .stat-cell .n { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--cream); }
+    .stat-cell .l { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #3a3a3a; margin-top: 4px; }
+    .email-row { display: flex; margin-top: 28px; }
+    .email-inp {
+      flex: 1;
+      background: var(--card);
+      border: 0.5px solid var(--border);
+      border-right: none;
+      color: var(--cream);
+      padding: 13px 16px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .email-inp:focus { border-color: var(--border-light); }
+    .email-inp::placeholder { color: #333; }
+    .email-sub {
+      background: var(--cream);
+      color: var(--dark);
+      border: none;
+      padding: 13px 20px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .email-sub:hover { opacity: 0.85; }
+
+    /* DIVIDER */
+    .divider { height: 0.5px; background: var(--border); margin: 0 32px; }
+    @media(max-width:640px){ .divider { margin: 0 16px; } }
+
+    /* TOAST */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: var(--cream);
+      color: var(--dark);
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 11px 22px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+      z-index: 9999;
+      white-space: nowrap;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo" onclick="showPage('home')">HeatSeekers</div>
+  <ul class="nav-links">
+    <li class="active" onclick="showPage('home')">Shop</li>
+    <li onclick="showPage('drops')">Drops</li>
+    <li onclick="showPage('archive')">Archive</li>
+    <li onclick="showPage('about')">About</li>
+  </ul>
+  <div class="nav-right">
+    <i class="ti ti-heart" onclick="showPage('wishlist')" title="Wishlist" aria-label="Wishlist"></i>
+    <div class="cart-wrap">
+      <i class="ti ti-shopping-bag" onclick="showPage('cart')" title="Cart" aria-label="Cart"></i>
+      <div class="cart-badge" id="cart-count">0</div>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== HOME ==================== -->
+<div id="page-home" class="page active">
+
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <div class="pulse"></div>
+      <span id="drop-eyebrow">Next Drop Loading...</span>
+    </div>
+    <h1>Rare<br>Vintage<br>Heat.</h1>
+    <p class="hero-sub">90s. Y2K. Sourced from estate sales and private sellers. Once it's gone, it's gone.</p>
+    <div class="countdown">
+      <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">Days</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">Hrs</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">Min</span></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">Sec</span></div>
+    </div>
+    <button class="btn" onclick="showPage('drops')">Shop The Drop <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+  </div>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marquee-track">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <div class="section-title"><i class="ti ti-flame" aria-hidden="true"></i> Featured Drops</div>
+      <div class="see-all" onclick="showPage('drops')">All Drops →</div>
+    </div>
+    <div class="grid-3" id="featured-grid"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- INSTAGRAM ON HOME -->
+  <div class="ig-section">
+    <div class="ig-head">
+      <div class="ig-title"><i class="ti ti-brand-instagram" aria-hidden="true"></i> Instagram</div>
+    </div>
+    <div class="ig-handle">
+      <a href="https://instagram.com/Heatseekers_collective" target="_blank" rel="noopener">@Heatseekers_collective</a>
+    </div>
+
+    <!-- =============================================
+         INSTAGRAM WIDGET — REPLACE THIS BLOCK
+         1. Go to lightwidget.com
+         2. Connect @Heatseekers_collective
+         3. Choose 3-column square grid, no border
+         4. Copy embed code and paste it here,
+            replacing the ig-placeholder-grid div
+         ============================================= -->
+    <div class="ig-widget-wrap">
+      <div class="ig-placeholder-grid">
+        <div class="ig-ph-cell">Post 1</div>
+        <div class="ig-ph-cell">Post 2</div>
+        <div class="ig-ph-cell">Post 3</div>
+        <div class="ig-ph-cell">Post 4</div>
+        <div class="ig-ph-cell">Post 5</div>
+        <div class="ig-ph-cell">Post 6</div>
+      </div>
+    </div>
+
+    <div class="ig-footer">
+      <a href="https://instagram.com/Heatseekers_collective" target="_blank" rel="noopener" class="btn btn-ghost">
+        <i class="ti ti-brand-instagram" aria-hidden="true"></i> Follow
+      </a>
+      <div class="ig-stats">
+        <!-- UPDATE THESE MANUALLY EACH MONTH -->
+        <div class="ig-stat"><span class="n">—</span><span class="l">Followers</span></div>
+        <div class="ig-stat"><span class="n">—</span><span class="l">Posts</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==================== DROPS ==================== -->
+<div id="page-drops" class="page">
+  <div class="section" style="padding-top:32px; padding-bottom:40px">
+    <div class="section-title" style="margin-bottom:20px">Current Drop</div>
+    <div class="filters" id="drop-filters"></div>
+    <div class="grid-3" id="drops-grid"></div>
+  </div>
+</div>
+
+<!-- ==================== PRODUCT DETAIL ==================== -->
+<div id="page-product" class="page">
+  <div class="detail-back" onclick="showPage('drops')">
+    <i class="ti ti-arrow-left" aria-hidden="true"></i> Back to drops
+  </div>
+  <div class="detail-wrap" id="detail-content"></div>
+</div>
+
+<!-- ==================== ARCHIVE ==================== -->
+<div id="page-archive" class="page">
+  <div class="section" style="padding-top:32px; padding-bottom:0">
+    <div class="section-head">
+      <div class="section-title">Sold Archive</div>
+    </div>
+    <p style="font-size:11px;letter-spacing:1px;color:#3a3a3a;margin-bottom:20px;text-transform:uppercase">These grails found their homes. They are not coming back.</p>
+    <div class="filters" id="archive-filters"></div>
+    <div class="grid-3" id="archive-grid"></div>
+  </div>
+
+  <div class="divider" style="margin-bottom:0"></div>
+
+  <!-- INSTAGRAM ON ARCHIVE -->
+  <div class="ig-section">
+    <div class="ig-head">
+      <div class="ig-title"><i class="ti ti-brand-instagram" aria-hidden="true"></i> Every Drop, Documented</div>
+    </div>
+    <div class="ig-handle">
+      <a href="https://instagram.com/Heatseekers_collective" target="_blank" rel="noopener">@Heatseekers_collective</a>
+    </div>
+    <div class="ig-widget-wrap">
+      <div class="ig-placeholder-grid">
+        <div class="ig-ph-cell">Post 1</div>
+        <div class="ig-ph-cell">Post 2</div>
+        <div class="ig-ph-cell">Post 3</div>
+        <div class="ig-ph-cell">Post 4</div>
+        <div class="ig-ph-cell">Post 5</div>
+        <div class="ig-ph-cell">Post 6</div>
+      </div>
+    </div>
+    <div class="ig-footer">
+      <a href="https://instagram.com/Heatseekers_collective" target="_blank" rel="noopener" class="btn btn-ghost">
+        <i class="ti ti-brand-instagram" aria-hidden="true"></i> Follow
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== CART ==================== -->
+<div id="page-cart" class="page">
+  <div class="cart-page" id="cart-content"></div>
+</div>
+
+<!-- ==================== WISHLIST ==================== -->
+<div id="page-wishlist" class="page">
+  <div class="section" style="padding-top:32px; padding-bottom:40px">
+    <div class="section-title" style="margin-bottom:24px"><i class="ti ti-heart" aria-hidden="true"></i> Wishlist</div>
+    <div class="grid-3" id="wishlist-grid"></div>
+    <div id="wishlist-empty" class="empty-state" style="display:none">
+      <i class="ti ti-heart" aria-hidden="true"></i>
+      <p>No saved pieces</p>
+      <button class="btn" onclick="showPage('drops')">Browse Drops</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== ABOUT ==================== -->
+<div id="page-about" class="page">
+  <div class="about-page">
+    <h2>Heat<br>Seekers<br>Collective</h2>
+    <div class="about-eyebrow">Est. 2021 — York, PA</div>
+    <p class="about-body">We hunt so you don't have to. Every piece is sourced from estate sales, thrift runs, and private sellers across the country. Nothing reproduced. Nothing replicated.</p>
+    <p class="about-body">Monthly drops. 10 to 20 unique pieces. Once it's gone, it doesn't come back. Ever.</p>
+    <div class="stats-row">
+      <!-- UPDATE THESE AS YOU GROW -->
+      <div class="stat-cell"><div class="n">400+</div><div class="l">Pieces Sold</div></div>
+      <div class="stat-cell"><div class="n">36</div><div class="l">Drops Done</div></div>
+      <div class="stat-cell"><div class="n">0</div><div class="l">Reprints</div></div>
+    </div>
+    <p style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#444;margin-bottom:8px">Get drop alerts — no spam, just the drop</p>
+    <div class="email-row">
+      <input class="email-inp" type="email" placeholder="your@email.com" id="email-inp" aria-label="Email address"/>
+      <button class="email-sub" onclick="subEmail()">JOIN</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  // =============================================
+  // DROP DATE — UPDATE THIS EVERY MONTH
+  // Set to your next drop date/time
+  // =============================================
+  const DROP_DATE = new Date('2025-07-18T12:00:00'); // CHANGE THIS
+  const DROP_NAME = 'July Drop 037'; // CHANGE THIS
+
+  // =============================================
+  // PRODUCTS — ADD/EDIT YOUR PIECES HERE
+  // To add a new product, copy one object and
+  // change the values. id must be unique.
+  //
+  // For photos: replace emoji with an <img> path
+  // photo: '/images/your-photo.jpg'
+  // (put photos in an /images/ folder)
+  //
+  // sizes: list available sizes as strings
+  // soldSizes: list sizes that are sold out
+  //
+  // For Shopify buy button:
+  // shopifyId: paste your Shopify product variant ID
+  // =============================================
+  const PRODUCTS = [
+    {
+      id: 1,
+      name: 'Lil Peep',
+      sub: "Memorial Hoodie '17",
+      price: 120,
+      era: 'Y2K',
+      cat: 'Hoodies',
+      emoji: '🖤',
+      photo: null, // replace with: '/images/lil-peep-hoodie.jpg'
+      sizes: ['S', 'M', 'XL'],
+      soldSizes: [],
+      desc: 'Extremely rare 2017 memorial tour hoodie. Embroidered front logo, original interior tags intact. Heavy 500gsm fleece. Minor fading consistent with age and wear.',
+      measurements: { chest: '24"', length: '28"', sleeve: '25"', condition: 'Very Good' },
+      featured: true,
+      sold: false,
+      shopifyId: null // paste Shopify variant ID here when ready
+    },
+    {
+      id: 2,
+      name: 'Godflesh',
+      sub: 'Streetcleaner L/S',
+      price: 250,
+      era: '90s',
+      cat: 'Shirts',
+      emoji: '💀',
+      photo: null,
+      sizes: ['L'],
+      soldSizes: [],
+      desc: 'Original 1989 Streetcleaner tour long-sleeve. Near mint condition. Screen printed front and back. One of the rarest industrial metal tees in circulation.',
+      measurements: { chest: '22"', length: '30"', sleeve: '26"', condition: 'Excellent' },
+      featured: true,
+      sold: false,
+      shopifyId: null
+    },
+    {
+      id: 3,
+      name: 'Denim',
+      sub: "Vintage Wrangler '94",
+      price: 90,
+      era: '90s',
+      cat: 'Bottoms',
+      emoji: '👖',
+      photo: null,
+      sizes: ['30×32', '32×32', '34×30'],
+      soldSizes: [],
+      desc: 'Dead-stock 1994 Wrangler denim. Original patch, no alterations. Medium wash with authentic period fade.',
+      measurements: { waist: '30"', inseam: '32"', rise: '11"', condition: 'Dead Stock' },
+      featured: true,
+      sold: false,
+      shopifyId: null
+    },
+    {
+      id: 4,
+      name: 'Lil Tecca',
+      sub: 'Ransom Era Tee',
+      price: 85,
+      era: 'Y2K',
+      cat: 'Shirts',
+      emoji: '⚡',
+      photo: null,
+      sizes: ['M', 'L', 'XL'],
+      soldSizes: ['M'],
+      desc: 'Promo tee from the Ransom era. Heavyweight cotton, barely worn. Screen printed graphic front.',
+      measurements: { chest: '21"', length: '29"', condition: 'Good' },
+      featured: false,
+      sold: false,
+      shopifyId: null
+    },
+    {
+      id: 5,
+      name: 'Windbreaker',
+      sub: "Nike '96 Aqua",
+      price: 110,
+      era: '90s',
+      cat: 'Outerwear',
+      emoji: '💧',
+      photo: null,
+      sizes: ['M', 'L'],
+      soldSizes: [],
+      desc: 'OG 1996 Nike windbreaker in aqua colorway. All original hardware and drawstrings. Minor cuff wear.',
+      measurements: { chest: '23"', length: '27"', condition: 'Very Good' },
+      featured: false,
+      sold: false,
+      shopifyId: null
+    },
+    {
+      id: 6,
+      name: 'Wu-Tang',
+      sub: '36 Chambers Tee',
+      price: 300,
+      era: '90s',
+      cat: 'Shirts',
+      emoji: '🐝',
+      photo: null,
+      sizes: ['XL'],
+      soldSizes: [],
+      desc: 'Original 1993 Wu-Tang Clan 36 Chambers release tee. Faded to absolute perfection. A genuine grail piece.',
+      measurements: { chest: '25"', length: '30"', condition: 'Good — age fading' },
+      featured: false,
+      sold: false,
+      shopifyId: null
+    },
+  ];
+
+  // =============================================
+  // SOLD ARCHIVE — MOVE SOLD PIECES HERE
+  // When something sells, cut it from PRODUCTS
+  // and paste it here with soldFor price + drop info
+  // =============================================
+  const ARCHIVE = [
+    { id: 101, name: 'Carti', sub: 'WLR Bootleg Tee', soldFor: 160, era: 'Y2K', cat: 'Shirts', emoji: '🌹', photo: null, drop: 'Drop 034', soldDate: 'Jun 2025' },
+    { id: 102, name: 'Travis Scott', sub: 'Utopia Stadium Tee', soldFor: 140, era: 'Y2K', cat: 'Shirts', emoji: '🌵', photo: null, drop: 'Drop 034', soldDate: 'Jun 2025' },
+    { id: 103, name: 'Nirvana', sub: "Nevermind '91 Tour", soldFor: 420, era: '90s', cat: 'Shirts', emoji: '🎸', photo: null, drop: 'Drop 033', soldDate: 'May 2025' },
+    { id: 104, name: 'Pelle Pelle', sub: 'Leather Bomber', soldFor: 380, era: '90s', cat: 'Outerwear', emoji: '🧥', photo: null, drop: 'Drop 033', soldDate: 'May 2025' },
+    { id: 105, name: 'Tupac', sub: 'All Eyez On Me Promo', soldFor: 550, era: '90s', cat: 'Shirts', emoji: '👑', photo: null, drop: 'Drop 032', soldDate: 'Apr 2025' },
+    { id: 106, name: 'JNCO', sub: "Wide Leg Denim '98", soldFor: 75, era: 'Y2K', cat: 'Bottoms', emoji: '🌀', photo: null, drop: 'Drop 032', soldDate: 'Apr 2025' },
+    { id: 107, name: 'Marilyn Manson', sub: 'Antichrist Tour Tee', soldFor: 280, era: '90s', cat: 'Shirts', emoji: '🔮', photo: null, drop: 'Drop 031', soldDate: 'Mar 2025' },
+    { id: 108, name: 'FUBU', sub: '75 Jersey', soldFor: 95, era: 'Y2K', cat: 'Shirts', emoji: '🏀', photo: null, drop: 'Drop 031', soldDate: 'Mar 2025' },
+  ];
+
+  // ==================== STATE ====================
+  let cart = [], wishlist = [];
+  let dropFilter = 'All', archiveFilter = 'All';
+  const CATS = ['All', 'Shirts', 'Hoodies', 'Bottoms', 'Outerwear'];
+
+  // ==================== TOAST ====================
+  function toast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(t._t);
+    t._t = setTimeout(() => t.classList.remove('show'), 2400);
+  }
+
+  // ==================== NAV ====================
+  function showPage(p) {
+    document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-links li').forEach(el => el.classList.remove('active'));
+    document.getElementById('page-' + p).classList.add('active');
+    const map = { home: 'Shop', drops: 'Drops', archive: 'Archive', about: 'About' };
+    if (map[p]) {
+      document.querySelectorAll('.nav-links li').forEach(el => {
+        if (el.textContent.trim() === map[p]) el.classList.add('active');
+      });
+    }
+    window.scrollTo(0, 0);
+    if (p === 'cart') renderCart();
+    if (p === 'wishlist') renderWishlist();
+    if (p === 'drops') { renderDropFilters(); renderDropsGrid(); }
+    if (p === 'archive') { renderArchiveFilters(); renderArchiveGrid(); }
+  }
+
+  // ==================== COUNTDOWN ====================
+  function initCountdown() {
+    document.getElementById('drop-eyebrow').textContent = DROP_NAME + ' — Countdown';
+    function tick() {
+      const diff = DROP_DATE - new Date();
+      if (diff <= 0) {
+        document.getElementById('drop-eyebrow').textContent = DROP_NAME + ' — LIVE NOW';
+        ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-d').textContent = String(d).padStart(2, '0');
+      document.getElementById('cd-h').textContent = String(h).padStart(2, '0');
+      document.getElementById('cd-m').textContent = String(m).padStart(2, '0');
+      document.getElementById('cd-s').textContent = String(s).padStart(2, '0');
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
+
+  // ==================== MARQUEE ====================
+  function initMarquee() {
+    const items = [
+      ...PRODUCTS.filter(p => p.featured).map(p => `🔥 <em>${p.era}</em> — ${p.name} ${p.sub}`),
+      ...ARCHIVE.slice(0, 4).map(a => `✦ <em>Sold</em> — ${a.name} ${a.sub}`)
+    ];
+    const doubled = [...items, ...items];
+    document.getElementById('marquee-track').innerHTML =
+      doubled.map(i => `<span>${i}</span>`).join('');
+  }
+
+  // ==================== CART COUNT ====================
+  function updateCartCount() {
+    document.getElementById('cart-count').textContent = cart.reduce((a, b) => a + b.qty, 0);
+  }
+
+  // ==================== WISHLIST ====================
+  function toggleWishlist(id, e) {
+    e.stopPropagation();
+    const idx = wishlist.indexOf(id);
+    if (idx === -1) { wishlist.push(id); toast('Saved to wishlist'); }
+    else { wishlist.splice(idx, 1); toast('Removed from wishlist'); }
+    renderFeatured(); renderDropsGrid(); renderWishlist();
+  }
+
+  // ==================== CARD HTML ====================
+  function cardHtml(p) {
+    const wl = wishlist.includes(p.id);
+    const imgContent = p.photo
+      ? `<img src="${p.photo}" alt="${p.name} ${p.sub}" loading="lazy"/>`
+      : `<div class="card-img-placeholder">${p.emoji}</div>`;
+    return `<article class="card" onclick="openProduct(${p.id})" role="button" tabindex="0" aria-label="${p.name} ${p.sub} — $${p.price}">
+      <div class="card-img">
+        ${p.sold ? '<div class="card-tag tag-sold">Sold</div>' : p.featured ? '<div class="card-tag tag-new">New</div>' : ''}
+        <i class="ti ti-heart card-wish${wl ? ' on' : ''}"
+           onclick="toggleWishlist(${p.id}, event)"
+           aria-label="${wl ? 'Remove from' : 'Add to'} wishlist"
+           role="button" tabindex="0"></i>
+        ${imgContent}
+      </div>
+      <div class="card-body">
+        <div class="card-name">${p.name}</div>
+        <div class="card-sub">${p.sub}</div>
+        <div class="card-meta">
+          <span class="card-price">$${p.price}</span>
+          <span class="card-era">${p.era}</span>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  // ==================== FEATURED ====================
+  function renderFeatured() {
+    document.getElementById('featured-grid').innerHTML =
+      PRODUCTS.filter(p => p.featured && !p.sold).map(cardHtml).join('');
+  }
+
+  // ==================== DROPS GRID ====================
+  function renderDropFilters() {
+    document.getElementById('drop-filters').innerHTML =
+      CATS.map(c => `<button class="filter-btn${c === dropFilter ? ' active' : ''}" onclick="setDropFilter('${c}')">${c}</button>`).join('');
+  }
+  function setDropFilter(c) { dropFilter = c; renderDropFilters(); renderDropsGrid(); }
+  function renderDropsGrid() {
+    const items = (dropFilter === 'All' ? PRODUCTS : PRODUCTS.filter(p => p.cat === dropFilter));
+    document.getElementById('drops-grid').innerHTML = items.map(cardHtml).join('');
+  }
+
+  // ==================== ARCHIVE ====================
+  function renderArchiveFilters() {
+    document.getElementById('archive-filters').innerHTML =
+      CATS.map(c => `<button class="filter-btn${c === archiveFilter ? ' active' : ''}" onclick="setArchiveFilter('${c}')">${c}</button>`).join('');
+  }
+  function setArchiveFilter(c) { archiveFilter = c; renderArchiveFilters(); renderArchiveGrid(); }
+  function renderArchiveGrid() {
+    const items = archiveFilter === 'All' ? ARCHIVE : ARCHIVE.filter(a => a.cat === archiveFilter);
+    const imgPlaceholder = a => a.photo
+      ? `<img src="${a.photo}" alt="${a.name}" loading="lazy" style="width:100%;height:100%;object-fit:cover;filter:grayscale(30%) brightness(0.65)">`
+      : `<span style="font-size:40px;opacity:0.35">${a.emoji}</span>`;
+    document.getElementById('archive-grid').innerHTML = items.map(a => `
+      <div class="archive-card">
+        <div class="archive-img">
+          ${imgPlaceholder(a)}
+          <div class="archive-overlay"><div class="archive-stamp">SOLD</div></div>
+        </div>
+        <div class="archive-body">
+          <div class="archive-name">${a.name} — ${a.sub}</div>
+          <div class="archive-row">
+            <span class="archive-price">$${a.soldFor}</span>
+            <span class="archive-drop">${a.drop} · ${a.soldDate}</span>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  // ==================== PRODUCT DETAIL ====================
+  function openProduct(id) {
+    const p = PRODUCTS.find(x => x.id === id);
+    if (!p) return;
+    const imgContent = p.photo
+      ? `<img src="${p.photo}" alt="${p.name} ${p.sub}"/>`
+      : p.emoji;
+
+    const measHtml = Object.entries(p.measurements || {}).map(([k, v]) =>
+      `<div class="meas-item">${k.charAt(0).toUpperCase() + k.slice(1)}: <span>${v}</span></div>`
+    ).join('');
+
+    const sizesHtml = p.sizes.map(s => {
+      const isSold = (p.soldSizes || []).includes(s);
+      return `<div class="size-opt${isSold ? ' sold' : ''}" onclick="${isSold ? '' : 'selectSize(this)'}">${s}${isSold ? ' — Sold' : ''}</div>`;
+    }).join('');
+
+    // =============================================
+    // SHOPIFY BUY BUTTON
+    // When you have a Shopify Starter plan:
+    // 1. Create product in Shopify
+    // 2. Go to Sales Channels > Buy Button
+    // 3. Create button for this product
+    // 4. Copy embed code
+    // 5. Replace the shopify-fallback button below
+    //    with your Shopify embed code
+    // =============================================
+    const buyButton = `
+      <div class="shopify-slot">
+        <!-- SHOPIFY BUY BUTTON FOR PRODUCT ID: ${p.id} -->
+        <!-- Paste Shopify embed code here when ready -->
+        <button class="shopify-fallback" onclick="addToCart(${p.id})" ${p.sold ? 'disabled' : ''}>
+          ${p.sold ? 'SOLD OUT' : 'ADD TO CART'}
+        </button>
+      </div>`;
+
+    document.getElementById('detail-content').innerHTML = `
+      <div class="detail-img">${imgContent}</div>
+      <div class="detail-info">
+        <h2>${p.name}</h2>
+        <div class="detail-sub">${p.sub} · ${p.era} · ${p.cat}</div>
+        <div class="detail-price">$${p.price}</div>
+        <div class="size-label">Select Size</div>
+        <div class="sizes">${sizesHtml}</div>
+        ${buyButton}
+        <div class="detail-desc">
+          ${p.desc}
+          ${measHtml ? `<div class="detail-measurements">${measHtml}</div>` : ''}
+        </div>
+      </div>`;
+    showPage('product');
+  }
+
+  function selectSize(el) {
+    document.querySelectorAll('.size-opt').forEach(x => x.classList.remove('on'));
+    el.classList.add('on');
+  }
+
+  // ==================== CART ====================
+  function addToCart(id) {
+    const p = PRODUCTS.find(x => x.id === id);
+    const sel = document.querySelector('.size-opt.on');
+    if (!sel) { toast('Select a size first'); return; }
+    const size = sel.textContent;
+    const existing = cart.find(x => x.id === id && x.size === size);
+    if (existing) existing.qty++;
+    else cart.push({ id, name: p.name, sub: p.sub, size, price: p.price, emoji: p.emoji, photo: p.photo, qty: 1 });
+    updateCartCount();
+    toast('Added to bag');
+  }
+
+  function removeFromCart(idx) { cart.splice(idx, 1); updateCartCount(); renderCart(); }
+
+  function renderCart() {
+    const el = document.getElementById('cart-content');
+    if (!cart.length) {
+      el.innerHTML = `<div class="empty-state" style="padding-top:80px">
+        <i class="ti ti-shopping-bag" aria-hidden="true"></i>
+        <p>Your bag is empty</p>
+        <button class="btn" onclick="showPage('drops')">Shop The Drop</button>
+      </div>`;
+      return;
+    }
+    const total = cart.reduce((a, b) => a + b.price * b.qty, 0);
+    const thumbFor = c => c.photo
+      ? `<img src="${c.photo}" alt="${c.name}"/>`
+      : c.emoji;
+    el.innerHTML = `<h2 class="cart-title">Your Bag</h2>
+      ${cart.map((c, i) => `
+        <div class="cart-item">
+          <div class="cart-thumb">${thumbFor(c)}</div>
+          <div class="cart-info">
+            <div class="n">${c.name}</div>
+            <div class="s">Size: ${c.size} · Qty: ${c.qty}</div>
+          </div>
+          <div class="cart-price-col">$${c.price * c.qty}</div>
+          <i class="ti ti-x cart-rm" onclick="removeFromCart(${i})" aria-label="Remove item"></i>
+        </div>`).join('')}
+      <div class="cart-total-row">
+        <div class="cart-total-lbl">Total</div>
+        <div class="cart-total-price">$${total}</div>
+      </div>
+      <!-- REPLACE THIS BUTTON WITH SHOPIFY CART EMBED WHEN READY -->
+      <button class="btn btn-solid btn-full" onclick="toast('Connect Shopify to enable checkout')">
+        Checkout
+      </button>
+      <p style="font-size:10px;color:#333;text-align:center;margin-top:12px;letter-spacing:1px">
+        Secure checkout via Shopify
+      </p>`;
+  }
+
+  // ==================== WISHLIST ====================
+  function renderWishlist() {
+    const el = document.getElementById('wishlist-grid');
+    const empty = document.getElementById('wishlist-empty');
+    const items = PRODUCTS.filter(p => wishlist.includes(p.id));
+    if (!items.length) { el.innerHTML = ''; empty.style.display = 'block'; return; }
+    empty.style.display = 'none';
+    el.innerHTML = items.map(cardHtml).join('');
+  }
+
+  // ==================== EMAIL ====================
+  function subEmail() {
+    const v = document.getElementById('email-inp').value.trim();
+    if (!v || !v.includes('@')) { toast('Enter a valid email'); return; }
+    // CONNECT TO YOUR EMAIL SERVICE HERE
+    // Options: Mailchimp, ConvertKit, or a simple Formspree form
+    toast('You\'re on the list — drop alert incoming');
+    document.getElementById('email-inp').value = '';
+  }
+
+  // ==================== KEYBOARD NAV ====================
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const focused = document.activeElement;
+      if (focused && focused.getAttribute('role') === 'button') focused.click();
+    }
+  });
+
+  // ==================== INIT ====================
+  initCountdown();
+  initMarquee();
+  renderFeatured();
+  renderDropFilters();
+  renderDropsGrid();
+  renderArchiveFilters();
+  renderArchiveGrid();
+  updateCartCount();
+</script>
+
+</body>
+</html>
